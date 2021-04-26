@@ -26,12 +26,6 @@ const button = ({ children, onClick }) => ({
   children,
 });
 
-const isProps = (props) =>
-  typeof props === 'object' &&
-  !Array.isArray(props) &&
-  props !== null &&
-  props[isJsx] !== true;
-
 const hooksMap = (() => {
   let statesMap = new Map();
   return {
@@ -69,7 +63,7 @@ const useState = (initialState) => {
   const s = states;
   const i = currentStateIndex;
 
-  // Gjør klar til neste useState:
+  // Gjør klar til neste useState-invokasjon
   currentStateIndex++;
 
   if (i >= s.length) {
@@ -97,20 +91,7 @@ const render = (comp, props = {}, path = []) => {
     };
   }
 
-  if (typeof reactTree[0] !== 'function') {
-    reactTree = [fragment, ...reactTree];
-  }
-
-  const [component, ...propsAndChildren] = reactTree;
-
-  let children;
-  if (isProps(propsAndChildren[0])) {
-    props = propsAndChildren[0];
-    children = propsAndChildren.slice(1);
-  } else {
-    props = {};
-    children = propsAndChildren;
-  }
+  let [component, properties, ...children] = reactTree;
 
   children = children.map((c) => {
     if (typeof c === 'string') {
@@ -119,7 +100,7 @@ const render = (comp, props = {}, path = []) => {
     return () => c;
   });
 
-  return render(component, { ...props, children }, [...path, component]);
+  return render(component, { ...properties, children }, [...path, component]);
 };
 
 const mount = (domTree, domNode) => {
@@ -165,6 +146,7 @@ const Kom = ({ input }) => {
   const [s, set] = useState('hei');
   return [
     div,
+    {},
     s,
     input,
     [
@@ -174,22 +156,23 @@ const Kom = ({ input }) => {
           set(s + 'du');
         },
       },
-      'dupliser',
+      'dupliser!',
     ],
   ];
 };
 
 const App = () => {
-  let [state, setState] = useState(0);
-  let [state2, setState2] = useState(0);
+  const [state, setState] = useState(0);
+  const [state2, setState2] = useState(0);
   return [
     div,
-    [div, 'hei', 'du'],
-    ['yup', [Kom, { input: 'undef' }]],
+    {},
+    [div, {}, 'hei', 'du'],
+    [fragment, {}, 'yup', [Kom, { input: 'undef' }]],
     [Kom, { input: 'test' }],
     `snålt`,
     [div, { style: 'color: red' }, 'der'],
-    [div, `${state}`],
+    [div, {}, `${state}`],
     [
       button,
       {
@@ -199,7 +182,7 @@ const App = () => {
       },
       'trykk',
     ],
-    [div, `${state2}`],
+    [div, {}, `${state2}`],
     [
       button,
       {
