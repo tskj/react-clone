@@ -32,7 +32,27 @@ const isProps = (props) =>
   props !== null &&
   props[isJsx] !== true;
 
+let states = [];
+let currentStateIndex = 0;
+
+const useState = (initialState) => {
+  const i = currentStateIndex;
+  currentStateIndex++;
+
+  if (i >= states.length) {
+    states.push(initialState);
+  }
+
+  return [
+    states[i],
+    (newState) => {
+      states[i] = newState;
+    },
+  ];
+};
+
 const render = (comp, props = {}) => {
+  currentStateIndex = 0;
   let reactTree = comp(props);
 
   if (reactTree[isJsx]) {
@@ -107,23 +127,34 @@ const Kom = ({ input }) => {
 };
 
 const App = () => {
-  let state = 0;
+  let [state, setState] = useState(0);
+  let [state2, setState2] = useState(0);
   return [
     div,
-    [(div, 'hei', 'du')],
+    [div, 'hei', 'du'],
     ['yup', [Kom, { input: 'undef' }]],
     [Kom, { input: 'test' }],
     `snålt`,
     [div, { style: 'color: red' }, 'der'],
-    `${state}`,
+    [div, `${state}`],
     [
       button,
       {
         onClick: () => {
-          state += 1;
+          setState(state + 1);
         },
       },
       'trykk',
+    ],
+    [div, `${state2}`],
+    [
+      button,
+      {
+        onClick: () => {
+          setState2(state2 + 1);
+        },
+      },
+      'trykk!',
     ],
   ];
 };
