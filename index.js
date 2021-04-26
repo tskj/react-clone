@@ -32,33 +32,68 @@ const isProps = (props) =>
   props !== null &&
   props[isJsx] !== true;
 
+const hooksMap = (() => {
+  let statesMap = new Map();
+  return {
+    get: (path) => {
+      let currentMap = statesMap;
+      while (true) {
+        if (currentMap.has(path[0])) {
+          currentMap = currentMap.get(path[0]);
+
+          if (path.length === 0) {
+            return currentMap;
+          }
+
+          path = path.slice(1);
+        } else {
+          const newMap = path.length === 0 ? [] : new Map();
+          currentMap.set(path[0], newMap);
+
+          if (path.length === 0) {
+            return newMap;
+          }
+
+          currentMap = newMap;
+          path = path.slice(1);
+        }
+      }
+    },
+  };
+})();
+
 let states = [];
 let currentStateIndex = 0;
 
 const useState = (initialState) => {
+  const s = states;
   const i = currentStateIndex;
+
+  // Gjør klar til neste useState:
   currentStateIndex++;
 
-  if (i >= states.length) {
-    states.push(initialState);
+  if (i >= s.length) {
+    s.push(initialState);
   }
 
   return [
-    states[i],
+    s[i],
     (newState) => {
-      states[i] = newState;
+      s[i] = newState;
     },
   ];
 };
 
-const render = (comp, props = {}) => {
+const render = (comp, props = {}, path = []) => {
+  states = hooksMap.get(path);
   currentStateIndex = 0;
+
   let reactTree = comp(props);
 
   if (reactTree[isJsx]) {
     return {
       ...reactTree,
-      children: reactTree.children?.map(render),
+      children: reactTree.children?.map((c, i) => render(c, {}, [...path, i])),
     };
   }
 
@@ -84,7 +119,7 @@ const render = (comp, props = {}) => {
     return () => c;
   });
 
-  return render(component, { ...props, children });
+  return render(component, { ...props, children }, [...path, component]);
 };
 
 const mount = (domTree, domNode) => {
@@ -119,11 +154,29 @@ const mount = (domTree, domNode) => {
 const draw = (Component) => {
   const screen = document.getElementById('app');
   screen.innerHTML = '';
-  mount(render(Component), screen);
+  mount(render(Component, {}, [Component]), screen);
 };
 
+/**
+ *  Applikkasjonskode
+ */
+
 const Kom = ({ input }) => {
-  return [div, 'lol', input];
+  const [s, set] = useState('hei');
+  return [
+    div,
+    s,
+    input,
+    [
+      button,
+      {
+        onClick: () => {
+          set(s + 'du');
+        },
+      },
+      'dupliser',
+    ],
+  ];
 };
 
 const App = () => {
