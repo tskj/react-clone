@@ -1,5 +1,10 @@
 const isJsx = Symbol('JSX');
 
+const nil = () => ({
+  tag: 'null',
+  [isJsx]: true,
+});
+
 const str = ({ string }) => ({
   tag: 'text',
   [isJsx]: true,
@@ -56,6 +61,10 @@ const hooksMap = (() => {
   };
 })();
 
+/**
+ * React-klone
+ */
+
 let states = [];
 let currentStateIndex = 0;
 
@@ -97,6 +106,9 @@ const render = (comp, props = {}, path = []) => {
     if (typeof c === 'string') {
       return () => [str, { string: c }];
     }
+    if (c === null || c === undefined || c === false) {
+      return () => [nil];
+    }
     return () => c;
   });
 
@@ -105,6 +117,9 @@ const render = (comp, props = {}, path = []) => {
 
 const mount = (domTree, domNode) => {
   switch (domTree.tag) {
+    case 'null': {
+      break;
+    }
     case 'text': {
       domNode.appendChild(document.createTextNode(domTree.content));
       break;
@@ -164,6 +179,7 @@ const Kom = ({ input }) => {
 const App = () => {
   const [state, setState] = useState(0);
   const [state2, setState2] = useState(0);
+  const [show, setShow] = useState(true);
   return [
     div,
     {},
@@ -191,6 +207,15 @@ const App = () => {
         },
       },
       'trykk!',
+    ],
+    show && [
+      button,
+      {
+        onClick: () => {
+          setShow(false);
+        },
+      },
+      'fjern',
     ],
   ];
 };
