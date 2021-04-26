@@ -177,45 +177,63 @@ const Kom = ({ input }) => {
 };
 
 const App = () => {
-  const [state, setState] = useState(0);
-  const [state2, setState2] = useState(0);
-  const [show, setShow] = useState(true);
+  const [counter1, setCounter1] = useState(0);
+  const [counter2, setCounter2] = useState(0);
+  const [counter1isActive, setCounter1isActive] = useState(true);
   return [
     div,
     {},
-    [div, {}, 'hei', 'du'],
-    [fragment, {}, 'yup', [Kom, { input: 'undef' }]],
-    [Kom, { input: 'test' }],
-    `snålt`,
-    [div, { style: 'color: red' }, 'der'],
-    [div, {}, `${state}`],
+    [div, { style: 'font-weight: bold; font-size: 16px' }, 'Min reactklone'],
     [
-      button,
-      {
-        onClick: () => {
-          setState(state + 1);
+      div,
+      { style: 'display: flex; justify-content: space-between; width: 150px' },
+
+      [
+        button,
+        {
+          onClick: () => {
+            if (counter1isActive) {
+              setCounter1(counter1 - 1);
+            } else {
+              setCounter2(counter2 - 1);
+            }
+          },
         },
-      },
-      'trykk',
+        '-',
+      ],
+
+      [div, {}, `${counter1}`],
+      [div, {}, `${counter2}`],
+
+      [
+        button,
+        {
+          onClick: () => {
+            if (counter1isActive) {
+              setCounter1(counter1 + 1);
+            } else {
+              setCounter2(counter2 + 1);
+            }
+          },
+        },
+        '+',
+      ],
     ],
-    [div, {}, `${state2}`],
-    [
+
+    [div, { style: 'margin-left: 53px' }, '^'],
+    [div, { style: 'margin-left: 50px' }, '/'],
+    [div, {}, '---------'],
+
+    !counter1isActive && [
       button,
-      {
-        onClick: () => {
-          setState2(state2 + 1);
-        },
-      },
-      'trykk!',
+      { onClick: () => setCounter1isActive(true) },
+      'bytt',
     ],
-    show && [
+
+    counter1isActive && [
       button,
-      {
-        onClick: () => {
-          setShow(false);
-        },
-      },
-      'fjern',
+      { onClick: () => setCounter1isActive(false) },
+      'bytt',
     ],
   ];
 };
