@@ -150,19 +150,19 @@ const draw = (Component) => {
  *  Applikkasjonskode
  */
 
-const Kom = ({ input }) => {
-  const [s, set] = useState('hei');
+const Kom = ({ text }) => {
+  const [s, set] = useState('');
 
   return [
     div,
     {},
+    'Hei ',
     s,
-    input,
     [
       button,
       {
         onClick: () => {
-          set(s + 'du');
+          set(s + text);
         },
       },
       ' dupliser!',
@@ -179,12 +179,12 @@ const App = () => {
     div,
     {
       style:
-        'display: flex; flex-direction: column; height: 200px; justify-content: space-between',
+        'display: flex; flex-direction: column; height: 200px; justify-content: space-between;',
     },
     [div, { style: 'font-weight: bold; font-size: 16px' }, 'Min reactklone'],
 
-    [Kom, { input: 'der' }],
-    [Kom, { input: '!' }],
+    [Kom, { text: 'der' }],
+    [Kom, { text: '!' }],
 
     [
       div,
