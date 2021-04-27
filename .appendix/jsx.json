@@ -1,0 +1,253 @@
+{
+    "tag": "div",
+    "attributes": {
+        "style": "display: flex; flex-direction: column; height: 200px; justify-content: space-between;"
+    },
+    "children": [
+        {
+            "tag": "div",
+            "attributes": {
+                "style": "font-weight: bold; font-size: 16px"
+            },
+            "children": [
+                {
+                    "tag": "text",
+                    "content": "Min reactklone"
+                }
+            ]
+        },
+        {
+            "tag": "div",
+            "attributes": {},
+            "children": [
+                {
+                    "tag": "text",
+                    "content": "Hei "
+                },
+                {
+                    "tag": "text",
+                    "content": ""
+                },
+                {
+                    "tag": "button",
+                    "eventListeners": {},
+                    "children": [
+                        {
+                            "tag": "text",
+                            "content": " dupliser!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "tag": "div",
+            "attributes": {},
+            "children": [
+                {
+                    "tag": "text",
+                    "content": "Hei "
+                },
+                {
+                    "tag": "text",
+                    "content": ""
+                },
+                {
+                    "tag": "button",
+                    "eventListeners": {},
+                    "children": [
+                        {
+                            "tag": "text",
+                            "content": " dupliser!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "tag": "div",
+            "attributes": {},
+            "children": [
+                {
+                    "tag": "div",
+                    "attributes": {
+                        "style": "display: flex; justify-content: space-between; width: 150px"
+                    },
+                    "children": [
+                        {
+                            "tag": "button",
+                            "eventListeners": {},
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "-"
+                                }
+                            ]
+                        },
+                        {
+                            "tag": "div",
+                            "attributes": {},
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "tag": "div",
+                            "attributes": {},
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "tag": "button",
+                            "eventListeners": {},
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "+"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "tag": "div",
+                    "attributes": {
+                        "style": "display: flex"
+                    },
+                    "children": [
+                        {
+                            "tag": "div",
+                            "attributes": {
+                                "style": "margin-left: 53px; color: green;"
+                            },
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "^"
+                                }
+                            ]
+                        },
+                        {
+                            "tag": "div",
+                            "attributes": {
+                                "style": "margin-left: 27px; "
+                            },
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "^"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "tag": "div",
+                    "attributes": {
+                        "style": "display: flex"
+                    },
+                    "children": [
+                        {
+                            "tag": "div",
+                            "attributes": {
+                                "style": "margin-left: 50px"
+                            },
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "/"
+                                }
+                            ]
+                        },
+                        {
+                            "tag": "div",
+                            "attributes": {
+                                "style": "margin-left: 40px"
+                            },
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "\\"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "tag": "div",
+                    "attributes": {
+                        "style": "display: flex"
+                    },
+                    "children": [
+                        {
+                            "tag": "div",
+                            "attributes": {},
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "---------"
+                                }
+                            ]
+                        },
+                        {
+                            "tag": "div",
+                            "attributes": {
+                                "style": "margin-left: 57px"
+                            },
+                            "children": [
+                                {
+                                    "tag": "text",
+                                    "content": "---------"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "tag": "div",
+                    "attributes": {
+                        "style": "position: relative; width: 150px"
+                    },
+                    "children": [
+                        {
+                            "tag": "div",
+                            "attributes": {
+                                "style": "position: absolute; left: 0"
+                            },
+                            "children": [
+                                {
+                                    "tag": "null"
+                                }
+                            ]
+                        },
+                        {
+                            "tag": "div",
+                            "attributes": {
+                                "style": "position: absolute; right: 0"
+                            },
+                            "children": [
+                                {
+                                    "tag": "button",
+                                    "eventListeners": {},
+                                    "children": [
+                                        {
+                                            "tag": "text",
+                                            "content": "bytt"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
