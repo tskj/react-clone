@@ -152,6 +152,7 @@ const draw = (Component) => {
 
 const Kom = ({ input }) => {
   const [s, set] = useState('hei');
+
   return [
     div,
     {},
@@ -164,7 +165,7 @@ const Kom = ({ input }) => {
           set(s + 'du');
         },
       },
-      'dupliser!',
+      ' dupliser!',
     ],
   ];
 };
@@ -173,62 +174,115 @@ const App = () => {
   const [counter1, setCounter1] = useState(0);
   const [counter2, setCounter2] = useState(0);
   const [counter1isActive, setCounter1isActive] = useState(true);
+
   return [
     div,
-    {},
+    {
+      style:
+        'display: flex; flex-direction: column; height: 200px; justify-content: space-between',
+    },
     [div, { style: 'font-weight: bold; font-size: 16px' }, 'Min reactklone'],
+
+    [Kom, { input: 'der' }],
+    [Kom, { input: '!' }],
+
     [
       div,
-      { style: 'display: flex; justify-content: space-between; width: 150px' },
-
+      {},
       [
-        button,
+        div,
         {
-          onClick: () => {
-            if (counter1isActive) {
-              setCounter1(counter1 - 1);
-            } else {
-              setCounter2(counter2 - 1);
-            }
-          },
+          style: 'display: flex; justify-content: space-between; width: 150px',
         },
-        '-',
+
+        [
+          button,
+          {
+            onClick: () => {
+              if (counter1isActive) {
+                setCounter1(counter1 - 1);
+              } else {
+                setCounter2(counter2 - 1);
+              }
+            },
+          },
+          '-',
+        ],
+
+        [div, {}, `${counter1}`],
+        [div, {}, `${counter2}`],
+
+        [
+          button,
+          {
+            onClick: () => {
+              if (counter1isActive) {
+                setCounter1(counter1 + 1);
+              } else {
+                setCounter2(counter2 + 1);
+              }
+            },
+          },
+          '+',
+        ],
       ],
 
-      [div, {}, `${counter1}`],
-      [div, {}, `${counter2}`],
+      [
+        div,
+        { style: 'display: flex' },
+        [
+          div,
+          { style: `margin-left: 53px; ${activeColor(counter1isActive)}` },
+          '^',
+        ],
+        [
+          div,
+          { style: `margin-left: 27px; ${activeColor(!counter1isActive)}` },
+          '^',
+        ],
+      ],
+      [
+        div,
+        { style: 'display: flex' },
+        [div, { style: 'margin-left: 50px' }, '/'],
+        [div, { style: 'margin-left: 40px' }, '\\'],
+      ],
+      [
+        div,
+        { style: 'display: flex' },
+        [div, {}, '---------'],
+        [div, { style: 'margin-left: 57px' }, '---------'],
+      ],
 
       [
-        button,
-        {
-          onClick: () => {
-            if (counter1isActive) {
-              setCounter1(counter1 + 1);
-            } else {
-              setCounter2(counter2 + 1);
-            }
-          },
-        },
-        '+',
+        div,
+        { style: 'position: relative; width: 150px' },
+
+        [
+          div,
+          { style: 'position: absolute; left: 0' },
+
+          !counter1isActive && [
+            button,
+            { onClick: () => setCounter1isActive(true) },
+            'bytt',
+          ],
+        ],
+        [
+          div,
+          { style: 'position: absolute; right: 0' },
+
+          counter1isActive && [
+            button,
+            { onClick: () => setCounter1isActive(false) },
+            'bytt',
+          ],
+        ],
       ],
-    ],
-
-    [div, { style: 'margin-left: 53px' }, '^'],
-    [div, { style: 'margin-left: 50px' }, '/'],
-    [div, {}, '---------'],
-
-    !counter1isActive && [
-      button,
-      { onClick: () => setCounter1isActive(true) },
-      'bytt',
-    ],
-
-    counter1isActive && [
-      button,
-      { onClick: () => setCounter1isActive(false) },
-      'bytt',
     ],
   ];
 };
+
+const activeColor = (isActive) => (isActive ? 'color: green;' : '');
 
 draw(App);
