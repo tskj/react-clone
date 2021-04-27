@@ -32,30 +32,23 @@ const button = ({ children, onClick }) => ({
 });
 
 const hooksMap = (() => {
-  let statesMap = new Map();
+  const statesMap = new Map();
   return {
     get: (path) => {
-      let currentMap = statesMap;
+      let current = statesMap;
       while (true) {
-        if (currentMap.has(path[0])) {
-          currentMap = currentMap.get(path[0]);
-
-          if (path.length === 0) {
-            return currentMap;
-          }
-
-          path = path.slice(1);
+        if (current.has(path[0])) {
+          current = current.get(path[0]);
         } else {
-          const newMap = path.length === 0 ? [] : new Map();
-          currentMap.set(path[0], newMap);
-
-          if (path.length === 0) {
-            return newMap;
-          }
-
-          currentMap = newMap;
-          path = path.slice(1);
+          const newEntry = path.length === 0 ? [] : new Map();
+          current.set(path[0], newEntry);
+          current = newEntry;
         }
+
+        if (path.length === 0) {
+          return current;
+        }
+        path = path.slice(1);
       }
     },
   };
